@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
   
   <title>Browser extensions manager UI</title>
 
@@ -13,8 +14,8 @@
 <body>
 
   <header>
-    <img src="assets/images/logo.svg" alt="logo">
-    <button id="color-app"><img src="assets/images/icon-moon.svg" alt="icon-moon"></button>
+    <img id="logo" src="assets/images/logo.svg" alt="logo">
+    <button id="color-app"><img id="color-app-img" src="assets/images/icon-sun.svg" alt="icon-sun"></button>
   </header>
   
   <nav>
@@ -30,9 +31,13 @@
 
   <main>
     <div class="item">
-      ConsolePlus
-      Enhanced developer console with advanced filtering and logging.
-      <button class="remove">Remove</button>
+      <img src="assets/images/logo-tab-master-pro.svg" alt="">
+      <h3>ConsolePlus</h3>
+      <p class="texto-card">Enhanced developer console with advanced filtering and logging.</p>
+      <div class="buttons">
+        <button class="remove">Remove</button>
+        <div id="bola"></div>
+      </div>
     </div>
   </main>
 
