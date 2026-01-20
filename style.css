@@ -56,6 +56,84 @@ ul>li{
     font-size: 1.1em;
 }
 
-ul>li:hover{
-    
+main{
+    display: grid;
 }
+
+.item{
+    display: block;
+    background-color:hsl(225, 23%, 24%);
+    margin: 20px;
+    padding: 20px;
+    color: white;
+    border-radius: 20px;
+    border: 3px solid  hsl(226, 11%, 37%);
+}
+
+.info{
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.info-text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.img-card{
+    width: 55px;
+    position: relative;
+    bottom: 14px;
+}
+
+.texto-card{
+    color:hsl(0, 0%, 78%) ;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove{
+    background-color:hsl(225, 23%, 24%);
+    color: white;
+    font-size:1em;
+    padding: 10px;
+    width: 80px;
+    border-radius: 20px;
+    border: 1px solid hsl(226, 11%, 37%) ;
+
+}
+
+.toggle {
+    width: 45px;
+    height: 25px;
+    background: #ccc;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s;
+  }
+  
+  .circle {
+    width: 21px;
+    height: 21px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: 0.3s;
+  }
+  
+  .toggle.active {
+    background: #ff4d4d;
+  }
+  
+  .toggle.active .circle {
+    left: 22px;
+  }
+  
