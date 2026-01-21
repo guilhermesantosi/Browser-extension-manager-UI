@@ -1,10 +1,13 @@
 
+
+
 fetch("data.json")
   .then(res => res.json())
   .then(dados => {
 
 
 dados.forEach(dados => {
+
   let nome = document.createElement('h3')
   let texto = document.createElement('p');
   let imagem = document.createElement('img');
@@ -13,14 +16,16 @@ dados.forEach(dados => {
   let div3 = document.createElement('div');
   let remove = document.createElement('button')
   let coiteiner = document.getElementById("main")
-
+ 
   div1.classList.add('item');
   coiteiner.appendChild(div1);
 
   div2.classList.add("info");
+ 
 
   let buttons = document.createElement("div")
   buttons.classList.add("buttons")
+
 
   div1.append(div2, buttons);
   imagem.src = dados.logo;
@@ -55,6 +60,9 @@ dados.forEach(dados => {
   let all = document.getElementById("All")
   let active = document.getElementById("Active")
   let inactive = document.getElementById("Inactive")
+  
+  all.style.backgroundColor = "hsl(3, 86%, 64%)"
+  all.style.color = "hsl(225, 23%, 24%"
 
   all.addEventListener("click", () =>{
     div1.style.display = "block"
@@ -93,7 +101,8 @@ dados.forEach(dados => {
       div1.style.display = "block";
     }
   })
+
    
 });
-
   })
+
