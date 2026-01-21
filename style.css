@@ -115,6 +115,7 @@ main{
     border-radius: 50px;
     cursor: pointer;
     position: relative;
+    top: 10px;
     transition: 0.3s;
   }
   
