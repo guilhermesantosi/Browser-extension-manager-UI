@@ -39,7 +39,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Click here](https://your-solution-url.com)
-- Live Site URL: [Click here](https://your-live-site-url.com)
+- Live Site URL: [Click here](https://guilhermesantosi.github.io/Browser-extension-manager-UI/)
 
 ## My process
 
