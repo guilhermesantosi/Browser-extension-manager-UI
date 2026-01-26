@@ -1,108 +1,158 @@
 
 
 
-fetch("data.json")
-  .then(res => res.json())
-  .then(dados => {
+class Item {
+ constructor (name, logo, description, ativo){
+  this.name = name;
+  this.logo = logo;
+  this.description = description;
+  this.active = ativo
+ }
+
+ render() {
+
+  let div = document.createElement("div");
+  div.classList.add("item")
+  const classeAtiva = this.active ? "active" : "";
+  div.innerHTML = `
+    <div class="info">
+    <img class="img-card" src="${this.logo}" alt="">
+    <div class="info-text"><h3>${this.name}</h3><p class="texto-card">${this.description}</p></div>
+    </div>
+    <div class="buttons">
+    <button class="remove" onclick="remove(this)">remove</button>
+    <div onclick="alternadorStatus(this)" class="toggle 
+    ${classeAtiva}"><div class="circle"</div>
+    </div>
+  `
+  return div;
+ }
+} 
+
+const fetchJson = async () =>{
+  try{
+    let response = await fetch("data.json")
+    if (!response.ok){
+      throw new Error("dados não encontrado")
+    }
+    data =  await response.json()
+    return data;
+  }catch (err){
+    console.error(err)
+    return err;
+  }
+}
+
+async function carregarDados() {
+  const data = await fetchJson();
+  return data
+}
+
+function criarCard(obj) {
+  return new Item(
+      obj.name,
+      obj.logo,
+      obj.description,
+      obj.isActive
+  ).render();
+}
 
 
-dados.forEach(dados => {
 
-  let nome = document.createElement('h3')
-  let texto = document.createElement('p');
-  let imagem = document.createElement('img');
-  let div1 = document.createElement('div');
-  let div2 = document.createElement('div');
-  let div3 = document.createElement('div');
-  let remove = document.createElement('button')
-  let coiteiner = document.getElementById("main")
- 
-  div1.classList.add('item');
-  coiteiner.appendChild(div1);
-
-  div2.classList.add("info");
- 
-
-  let buttons = document.createElement("div")
-  buttons.classList.add("buttons")
-
-
-  div1.append(div2, buttons);
-  imagem.src = dados.logo;
-  imagem.classList.add("img-card");
-
-  div2.append(imagem, div3);
-  div3.classList.add("info-text")
-  nome.innerText = dados.name;
-  texto.classList.add("texto-card");
-  texto.innerText = dados.description;
-  div3.append(nome, texto);
-  remove.classList.add('remove')
-  remove.innerText = "remove";
-
-  remove.addEventListener("click", function () {
-    div1.remove()
+const iniciar = async () =>{
+  const data = await carregarDados();
+  data.forEach(dados => {
+    
+  const main = document.getElementById("main")
+  main.append(criarCard(dados))
   });
+}
 
-   
-  let toggle = document.createElement("div");
-  toggle.classList.add("toggle");
-  let circle = document.createElement("div");
-  circle.classList.add("circle");
+iniciar()
 
-  toggle.append(circle)
-  buttons.append(remove, toggle)
-   toggle.addEventListener("click", () => {
-   toggle.classList.toggle("active");
-  });
+let status = {};
 
-
-  let all = document.getElementById("All")
-  let active = document.getElementById("Active")
-  let inactive = document.getElementById("Inactive")
+function alternadorStatus(event){
   
+  const nomeDoItem = event.closest(".item").querySelector("h3").innerText;
+  status[nomeDoItem] = event.classList.contains("active")
+  
+  if(event.classList.contains("active")){
+    event.classList.remove("active")
+  }else{
+    event.classList.add("active")
+  }
+  
+}
+
+function remove(event){
+  event.closest(".item").remove();
+}
+
+let all = document.getElementById("All");
+let active = document.getElementById("Active")
+let inactive = document.getElementById("Inactive")
+
+all.style.backgroundColor = "hsl(3, 86%, 64%)"
+all.style.color = "hsl(225, 23%, 24%"
+
+all.addEventListener("click", () =>{
+
+  let divs = document.querySelectorAll(".item")
+  divs.forEach(card =>{
+    card.style.display = "block";
+  })
   all.style.backgroundColor = "hsl(3, 86%, 64%)"
   all.style.color = "hsl(225, 23%, 24%"
+  active.style.backgroundColor = ""
+  active.style.color = ""
+  inactive.style.backgroundColor = ""
+  inactive.style.color = ""
+  
+})
 
-  all.addEventListener("click", () =>{
-    div1.style.display = "block"
-    all.style.backgroundColor = "hsl(3, 86%, 64%)"
-    all.style.color = "hsl(225, 23%, 24%"
-    active.style.backgroundColor = ""
-    active.style.color = ""
-    inactive.style.backgroundColor = ""
-    inactive.style.color = ""
-  })
+active.addEventListener("click", () =>{
 
-  active.addEventListener("click", () =>{
-    active.style.backgroundColor = "hsl(3, 86%, 64%)"
-    active.style.color = "hsl(225, 23%, 24%)"
-    all.style.backgroundColor = ""
-    all.style.color = ""
-    inactive.style.backgroundColor = ""
-    inactive.style.color = ""
-    if (toggle.classList.contains("active")){
-      div1.style.display = "block"
+  let divs = document.querySelectorAll(".item")
+  divs.forEach(card =>{
+    const toggle = card.querySelector('.toggle')
+    if (!toggle.classList.contains('active')) {
+      card.style.display = "none" 
     }else{
-      div1.style.display = "none";
+      card.style.display = "block"
     }
   })
+  all.style.backgroundColor = ""
+  all.style.color = ""
+  active.style.backgroundColor = "hsl(3, 86%, 64%)"
+  active.style.color = "hsl(225, 23%, 24%"
+  inactive.style.backgroundColor = ""
+  inactive.style.color = ""
+  
+})
 
-  inactive.addEventListener("click", () =>{
-    inactive.style.backgroundColor = "hsl(3, 86%, 64%)"
-    inactive.style.color = "hsl(225, 23%, 24%)"
-    active.style.backgroundColor = ""
-    active.style.color = ""
-    all.style.backgroundColor = ""
-    all.style.color = ""
-    if (toggle.classList.contains("active")){
-      div1.style.display = "none"
+inactive.addEventListener("click", () =>{
+
+  let divs = document.querySelectorAll(".item")
+  divs.forEach(card =>{
+    const toggle = card.querySelector('.toggle')
+    if (toggle.classList.contains('active')) {
+      card.style.display = "none" 
     }else{
-      div1.style.display = "block";
+      card.style.display = "block" 
     }
   })
+  all.style.backgroundColor = ""
+  all.style.color = ""
+  active.style.backgroundColor = ""
+  active.style.color = ""
+  inactive.style.backgroundColor = "hsl(3, 86%, 64%)"
+  inactive.style.color = "hsl(225, 23%, 24%"
+  
+})
 
-   
-});
-  })
+
+
+
+
 
